@@ -29,14 +29,14 @@ char sss::number_to_num(int x) {
 char sss::number_to_fc(int x) {
 	return c[x];
 }
-int o = 0;
-inline pi sss::fen(int x) {
-	vector <pi >q;
+pi q[6];
+inline pi sss::fen(const int &x) {
+	//vector <pi >q;
+	int m = 0;
 	for (int i = 0; i < n; i++)
 		if (x >> i & 1) {
-			q.push_back(s[i]);
+			q[m++] = s[i];
 		}
-	int m = (int)q.size();
 	if (m == 3) {
 		if (q[0].fi == q[1].fi && q[1].fi == q[2].fi) return mp(4, q[0].fi);
 		if (q[0].fi == q[1].fi || q[1].fi == q[2].fi) return mp(1, q[1].fi);
@@ -76,7 +76,7 @@ inline pi sss::fen(int x) {
 	}
 	return mp(1, f[0]);
 }
-void sss::check(int x, int y, int z) {
+inline void sss::check(const int &x,const int &y,const int &z) {
 	//dd(x), dd(y), de(z);
 	//de((x^y^z));
 	pi x1 = fen(x);
@@ -85,19 +85,18 @@ void sss::check(int x, int y, int z) {
 	if (x1 > x2 || x2 > x3) return;
 	v.push_back(P(x1.first+x2.first+x3.first, x1, x2 , x3, x, y, z));
 }
+int st[10];
 void sss::dfs(int p, int t, int sta) {
 	if (t > 5) {
-		int t = 0;
+		int m = 0;
 		for (int i = 0; i < n; i++)
-			if (!(sta >> i & 1))
-				for (int j = i + 1; j < n; j++)
-					if (!(sta >> j & 1))
-						for (int k = j + 1; k < n; k++)
-							if (!(sta >> k & 1)) {
-								t++;
-								int x = (1 << i) | (1 << j) | (1 << k);
-								check(x, ((1 << 13) - 1) ^ sta^x, sta);
-						}
+			if (!(sta >> i & 1)) st[m++] = i;
+		for (int i = 0; i < m; i++)
+			for (int j = i + 1; j < m; j++)
+				for (int k = j + 1; k < m; k++){
+					int x = (1 << st[i]) | (1 << st[j]) | (1 << st[k]);
+					check(x, ((1 << 13) - 1) ^ sta^x, sta);
+				}
 		return;
 	}
 	for (int i = p; i < n; i++) {
@@ -140,7 +139,7 @@ void sss::ans(int x,int y,int z) {
 	prin(x);
 	prin(y);
 	prin(z);
-	system("pause");
+//	system("pause");
 }
 void sss::doit() {
 	v.clear();

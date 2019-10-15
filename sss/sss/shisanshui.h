@@ -47,11 +47,11 @@ public:
 	void doit();
 	void dfs(int, int,int);
 //	void dfs1(int, int);
-	void check(int, int, int);
+	void check(const int &, const int &, const int &);
 	int pk(int, int);
 	void prin(int );
 	void ans(int, int, int);
-	pi fen(int);
+	pi fen(const int &);
 	int fc_to_number(char );
 	int num_to_number(char);
 	char number_to_num(int);
