@@ -106,8 +106,10 @@ void sss::dfs(int p, int t, int sta) {
 int sss::pk(int x, int y) {
 	int num = 0, t = 0;
 	pi x1 = v[x].p1, x2 = v[y].p1;
-	if (x1 > x2) num++, t++;
-	else if (x1 < x2) num--, t--;
+	if (x1.first != 0 || x2.first != 0) {
+		if (x1 > x2) num++, t++;
+		else if (x1 < x2) num--, t--;
+	}
 	x1 = v[x].p2, x2 = v[y].p2;
 	int k = 0;
 	if (x1 > x2) { t++; if (x1.fi == 19) k = 8; else if (x1.fi == 20) k = 10; else if (x1.fi == 7)k = 2; }
@@ -122,6 +124,11 @@ int sss::pk(int x, int y) {
 	}
 	num += k;
 	if (t == 3 || t == -3 || t == 2 || t == -2) num *= 2;
+	x1 = v[x].p1, x2 = v[y].p1;
+	if (!num && x1.first == 0 && x2.first == 0) {
+		if (x1 > x2) num++, t++;
+		else if (x1 < x2) num--, t--;
+	}
 	return num;
 }
 void sss::prin(int x) {
@@ -139,7 +146,7 @@ void sss::ans(int x,int y,int z) {
 	prin(x);
 	prin(y);
 	prin(z);
-//	system("pause");
+	system("pause");
 }
 void sss::doit() {
 	v.clear();
