@@ -4,6 +4,7 @@
 #define se second
 #include <iostream>
 #include <cstdio>
+#include <curl/curl.h>   
 #include <string>
 #include <cstring>
 #include <vector>
